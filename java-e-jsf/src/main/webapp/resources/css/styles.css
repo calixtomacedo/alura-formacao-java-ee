@@ -1,0 +1,40 @@
+@charset "UTF-8";
+
+.tableAlura {
+	border-collapse: collapse;
+	width: 100%;
+}
+
+.tableAlura td, .tableAlura th {
+	border: 1px solid #ddd;
+	padding: 8px;
+}
+
+.tableAlura tr:nth-child(even) {
+	background-color: #f2f2f2;
+}
+
+.tableAlura tr:hover {
+	background-color: #ddd;
+}
+
+.tableAlura th {
+	padding-top: 8px;
+	padding-bottom: 8px;
+	text-align: left;
+	background-color: #e4f3f8;
+	color: black;
+}
+
+.acoes {
+	text-align: center;
+}
+
+.messages {
+	color: red;
+	margin: 8px;
+}
+
+.btnSair{
+	padding-left: 15px;
+}

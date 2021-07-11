@@ -1,0 +1,89 @@
+@charset "UTF-8";
+
+a:link, a:visited {
+  text-decoration: none;
+}
+
+a:hover, a:active {
+  text-decoration: none;
+}
+
+.capaLivos {
+	width: 10%;
+}
+
+.titulo {
+	padding-top: 20px;
+}
+
+p.bloco {
+	border-style: double;
+	border-width: 4px 0px 0px 0px;
+	border-color: #c7c7c7;
+}
+
+.li-bloco {
+	display: inline-block;
+}
+	
+.div-bloco {
+	padding: 20px;
+}
+
+.div-detalhe {
+	display: inline-block;
+	padding: 20px;
+}
+
+.div-detalhe-sub {
+	display: inline-block;
+	padding: 20px;
+}
+
+.div-detalhe-sub h3 {
+	color: #676767;
+	font-weight: inherit;
+}
+
+.div-detalhe-sub h4 {
+	color: #676767;
+	font-weight: lighter;
+}
+
+.div-carrinho {
+	padding: 0 0.2% 0 0.2%;
+}
+
+.table-btn-comprar {
+	width: 100%;
+}
+
+.img-item-carrinho {
+	width: 8%;
+}
+
+table thead tr th.test {
+  text-align:center;
+}
+
+table tbody tr td.central {
+	padding-top: 2%;
+}
+
+.input-quantidade {
+	width: 50px;
+}
+
+.bold {
+	font-weight: bold;
+}
+
+.sacola {
+	border: 2px solid #676767;
+  	border-radius: 4px;
+  	display: inline-block;
+  	color: #898989;
+  	font-size: x-large;
+  	padding: 0 10px 0 10px;
+}
+

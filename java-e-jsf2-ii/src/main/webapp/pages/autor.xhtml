@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+		xmlns:h="http://xmlns.jcp.org/jsf/html" 
+		xmlns:f="http://xmlns.jcp.org/jsf/core"
+		xmlns:p="http://primefaces.org/ui"
+		xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+	<ui:composition template="_template.xhtml">
+		
+		<f:metadata>
+			<f:viewParam name="autorId" value="#{autorBean.autorId}" />
+			<f:viewAction action="#{autorBean.carregarAutorPorId}" if="#{param.autorId != null}" />
+		</f:metadata>
+	
+		<ui:define name="titulo">
+			<p:outputPanel>Cadastro de autores</p:outputPanel>
+		</ui:define>
+		
+		<ui:define name="conteudo">
+		
+			<h:form id="formAutor">
+
+				<p:fieldset legend="Dados do Autor">
+					
+					<h:panelGrid columns="3">
+						<p:outputLabel value="Nome:" for="nome" />
+						<p:inputText size="60" id="nome" value="#{autorBean.autor.nome}" required="true" placeholder="digite o nome do autor" requiredMessage="O campo nome é de preenchimento obrigatório." validatorMessage="O campo nome é obrigatório no mínumo 5 caracteres.">
+							<f:validateLength minimum="5" />
+							<f:ajax event="blur" render="messageNome" />
+						</p:inputText>
+						<p:message for="nome" id="messageNome" />
+						
+						<p:outputLabel value="Email:" for="email" />
+						<p:inputText size="60" id="email" value="#{autorBean.autor.email}" required="true" placeholder="digite o e-mail do autor" requiredMessage="O campo email é de preenchimento obrigatório." validatorMessage="E-mail no formato inválido">
+							<f:passThroughAttribute name="type" value="email" />
+							<f:validateRegex pattern=".+@.+" />
+							<f:ajax event="blur" render="messageEmail" />
+						</p:inputText>
+						
+						<p:message for="email" id="messageEmail" />
+						
+					</h:panelGrid>
+					
+					<br />
+					<p:commandButton value="Gravar" action="#{autorBean.gravar}" process="@form" update="@form :formTableAutores" />
+
+				</p:fieldset>
+
+			</h:form>
+		
+			<br />
+			<div class="card">
+				<h:form id="formTableAutores">
+						
+					 <p:dataTable value="#{autorBean.listar()}" var="autor" id="tableAutores" paginator="true" rows="10" paginatorPosition="bottom"
+					 	paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+						currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registros">
+			
+						<p:column headerText="Código">
+			                <h:outputText value="#{autor.id}" />
+			            </p:column>
+						
+						<p:column headerText="Nome">
+			                <h:outputText value="#{autor.nome}" />
+			            </p:column>
+						
+						<p:column headerText="Email">
+			                <h:outputText value="#{autor.email}" />
+			            </p:column>
+			            
+						<p:column headerText="Data cadastro">
+			                <h:outputText value="#{autor.dataCadastro}">
+			                	<f:converter converterId="localDateTimeFacesConverter" for="dataCadastro" />
+			                </h:outputText>
+			            </p:column>
+				
+						<p:column>
+							<f:facet name="header">Alterar</f:facet>
+							<p:commandLink id="alterar" styleClass="white" title="Alterar">
+								<span class="pi pi-pencil icons"><f:ajax listener="#{autorBean.alterar(autor)}" render="formAutor" /></span>
+							</p:commandLink>
+						</p:column>
+			
+						<p:column>
+							<f:facet name="header">Apagar</f:facet>
+							<p:commandLink id="apagar" styleClass="white"  title="Apagar">
+								<span class="pi pi-trash icons"><f:ajax listener="#{autorBean.apagar(autor)}" render="formTableAutores" /></span>
+							</p:commandLink>
+						</p:column>
+						
+			        </p:dataTable>
+				
+				</h:form>
+			</div>
+			
+		</ui:define>
+	</ui:composition>
+
+</html>

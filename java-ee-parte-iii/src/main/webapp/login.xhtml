@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+		xmlns:h="http://xmlns.jcp.org/jsf/html"
+		xmlns:f="http://xmlns.jcp.org/jsf/core"
+		xmlns:p="http://primefaces.org/ui"
+		xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+		xmlns:c="http://java.sun.com/jsp/jstl/core"
+		xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"> 
+
+	<h:head>
+		<title>Loja de Livros - CM-DEV Desenvolvimentos</title>
+		
+		<h:outputStylesheet library="css" name="bootstrap/bootstrap.min.css" /> 
+		<h:outputStylesheet library="css" name="cmdev.css" />
+		<h:outputStylesheet library="css" name="login.css" />
+		 
+	</h:head>
+	
+	<h:body styleClass="text-center">
+		
+		<div class="header-page"></div>
+		
+		<main class="form-signin">
+			<h:form id="formLogin">
+				
+				<h1 class="title-login">Loja de Livros - CM-DEV Desenvolvimentos</h1>
+		
+				<h:messages globalOnly="true" styleClass="login-failed" />
+				
+				<div class="form-floating">
+					<h:inputText value="#{userAutentication.user.email}" styleClass="form-control" id="j_username" required="true" pt:placeholder="name@example.com" requiredMessage="Digite seu e-mail" />
+					<label for="j_username">E-mail</label>
+					<h:message for="j_username"/>
+				</div>
+				
+				<div class="form-floating">
+					<h:inputSecret value="#{userAutentication.user.senha}" styleClass="form-control" id="j_password" required="true" pt:placeholder="Senha" requiredMessage="Digite sua senha"  />
+					<label for="j_password">Senha</label>	
+					<h:message for="j_password"/>
+				</div>
+			
+				<h:commandButton action="#{userAutentication.login()}" value="ENTRAR" styleClass="w-100 btn btn-lg btn-primary" />
+				
+			</h:form>
+		</main>
+		
+	</h:body>	
+</html>

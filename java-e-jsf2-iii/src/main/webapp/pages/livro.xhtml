@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	 xmlns:h="http://xmlns.jcp.org/jsf/html" 
+	 xmlns:f="http://xmlns.jcp.org/jsf/core"
+	 xmlns:p="http://primefaces.org/ui"
+	 xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+	
+	<ui:composition template="_template.xhtml">
+		
+		<ui:define name="titulo">
+			Cadastro de livros
+		</ui:define>
+		
+		<ui:define name="conteudo">
+		
+			<h:form id="formLivro">
+			
+				<p:messages styleClass="messages" id="messages" />
+		
+				<p:fieldset legend="Dados do Livro">
+		
+					<h:panelGrid columns="2">
+		
+						<p:outputLabel value="Título:" for="titulo" />
+						<p:inputText size="60" id="titulo" value="#{livroBean.livro.titulo}" required="true" requiredMessage="O Campo título é de preenchimento obrigatório." validatorMessage="O Campo título, não pode ser superior a 100 caractéres.">
+							<f:validateLength maximum="100" />
+							<f:ajax event="blur" render="messages" />
+						</p:inputText>
+		
+						<p:outputLabel value="ISBN:" for="isbn" />
+						<p:inputMask size="60" id="isbn" value="#{livroBean.livro.isbn}" validator="#{livroBean.validarIsbn}" mask="999-9-99-999999-9" />
+		
+						<p:outputLabel value="Preço:" for="preco" />
+						<p:inputNumber size="60" id="preco" value="#{livroBean.livro.preco}" symbol="R$ " decimalSeparator="," thousandSeparator="." symbolPosition="p" />
+		
+		
+						<p:outputLabel value="Data de Lançamento:" for="dataLancamento" />
+						<p:datePicker size="60" id="dataLancamento" value="#{livroBean.livro.dataLancamento}" pattern="dd/MM/yyyy" showButtonBar="true" mask="true" />
+				
+					</h:panelGrid>
+		
+				</p:fieldset>
+		
+				<br />
+				<p:fieldset legend="Dados do Autor">
+					
+					<h:panelGrid columns="4">
+						<p:outputLabel value="Selecione o Autor:" for="autor" />
+						<p:selectOneMenu value="#{livroBean.autorId}" id="autor">
+							<f:selectItem itemLabel="Selecione" itemValue="" />
+							<f:selectItems value="#{livroBean.autores}" var="autor" itemLabel="#{autor.nome}" itemValue="#{autor.id}" />
+						</p:selectOneMenu>
+			
+						<p:commandButton value="Adicionar Autor" action="#{livroBean.adicionarAutor}" process="@this autor" update="tableAutrores">
+						</p:commandButton>
+						<p:commandButton value="Cadastrar novo Autor" action="#{livroBean.formAutor}" immediate="true" update="@all" />
+					</h:panelGrid>
+					
+					<br />
+					<p:dataTable value="#{livroBean.autoresDoLivro}" var="autor" id="tableAutrores" emptyMessage="" tableStyleClass="autor" styleClass="divAutor">
+						<p:column>
+							<h:outputText value="#{autor.nome}" />
+						</p:column>
+	
+						<p:column>
+							<p:commandLink id="deletar" action="#{livroBean.removeAutor(autor)}" process="@this" update="tableAutrores" title="Apagar esse autor" styleClass="white">
+								<span class="pi pi-trash icons"></span>
+							</p:commandLink>
+						</p:column>
+					</p:dataTable>
+		
+				</p:fieldset>
+		
+				<br />
+				<p:commandButton value="Gravar" action="#{livroBean.gravar}" process="@form" update="@form :formTableLivros:tableLivros" />
+		
+			</h:form>
+		
+			<br />
+			<h:form id="formTableLivros">
+				<p:dataTable value="#{livroBean.listar()}" var="livro" id="tableLivros" styleClass="tableAlura" columnClasses=",,,,,,acoes,acoes" paginator="true" rows="8" paginatorPosition="bottom"
+					paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registros"
+					filteredValue="#{livroBean.livroFiltro}" globalFilterFunction="#{livroBean.globalFilterFunction}" widgetVar="tableLivros">
+					
+					<f:facet name="header">
+						<div class="p-d-flex p-jc-end">
+							Lista de Livros cadastrados <p:inputText id="globalFilter" onkeyup="PF('tableLivros').filter()" style="width:300px" placeholder="Digite um valor para fazer a busca" />
+						</div>	
+					</f:facet>
+					
+					<p:column sortBy="#{livro.titulo}" headerText="Título">
+						<h:outputText value="#{livro.titulo}" />
+					</p:column>
+			
+					<p:column headerText="ISBN">
+						<h:outputText value="#{livro.isbn}" />
+					</p:column>
+			
+					<p:column sortBy="#{livro.preco}" headerText="Preço">
+						<h:outputText value="#{livro.preco}">
+							<f:convertNumber type="currency" pattern="R$ #0.00" currencySymbol="R$" locale="pt_BR" />
+						</h:outputText>
+					</p:column>
+			
+					<p:column headerText="Data">
+						<h:outputText value="#{livro.dataLancamento}">
+							<f:converter converterId="localDateFacesConverter" for="dataLancamento" />
+						</h:outputText>
+					</p:column>
+			
+					<p:column headerText="Data Cadastro">
+						<h:outputText value="#{livro.dataCadastro}">
+							<f:converter converterId="localDateTimeFacesConverter" for="dataCadastro" />
+						</h:outputText>
+					</p:column>
+					
+					<p:column headerText="Alterar">
+						<p:commandLink id="alterar" actionListener="#{livroBean.alterar(livro)}" process="@this" update="formLivro" title="Alterar" styleClass="white">
+							<span class="pi pi-pencil icons"></span>
+						</p:commandLink>
+					</p:column>
+
+					<p:column headerText="Apagar">
+						<p:commandLink id="apagar" actionListener="#{livroBean.apagar(livro)}" process="@this" update="@form" title="Apagar" styleClass="white">
+							<span class="pi pi-trash icons"></span>
+						</p:commandLink>
+					</p:column>
+					
+				</p:dataTable>
+			</h:form>
+		
+		</ui:define>
+	</ui:composition>	
+	
+</html>

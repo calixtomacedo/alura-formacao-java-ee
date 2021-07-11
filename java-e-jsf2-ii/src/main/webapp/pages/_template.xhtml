@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+		xmlns:h="http://xmlns.jcp.org/jsf/html"
+		xmlns:f="http://xmlns.jcp.org/jsf/core"
+		xmlns:p="http://primefaces.org/ui"
+		xmlns:ui="http://xmlns.jcp.org/jsf/facelets"> 
+	
+	<h:head>
+		
+		<title>Java e JSF 2 - II: Componentes ricos com Primefaces</title>
+		
+		<h:outputStylesheet library="css" name="styles.css" /> 
+	</h:head>
+	
+	<h:body>
+		<div id="cabecalho">
+			
+			<div class="card">
+			    <h:form rendered="#{usuarioAutenticado != null}">
+			
+			        <p:menubar>
+			            <p:submenu label="Menu de Navegação" icon="pi pi-fw pi-file">
+		                    <p:menuitem value="Livros" action="livro?faces-redirect=true" icon="pi pi-fw"/>
+		                    <p:menuitem value="Autores" action="autor?faces-redirect=true" icon="pi pi-fw"/>
+		                    <p:menuitem value="Vendas" action="vendas?faces-redirect=true" icon="pi pi-fw"/>
+			            </p:submenu>
+						
+						<f:facet name="options">
+							Olá <b><h:outputText value="#{sessionScope['usuarioAutenticado'].nome}" /></b>, seja bem vindo ao sistema!
+						</f:facet>
+						
+			            <f:facet name="options">
+			                <p:commandButton action="#{usuarioBean.logout}" value="Logout" icon="pi pi-fw pi-sign-out" styleClass="ui-button-info"/>
+			            </f:facet>
+						
+								            
+			        </p:menubar>
+			        
+			    </h:form>
+			</div>
+			
+			<br />
+			<h:graphicImage library="img" name="logo.png" />
+			
+			<h1>
+				<ui:insert name="titulo"></ui:insert>
+			</h1>
+		</div>
+		
+		<div id="conteudo">
+			<ui:insert name="conteudo"></ui:insert>
+		</div>
+		
+	</h:body>
+
+</html>

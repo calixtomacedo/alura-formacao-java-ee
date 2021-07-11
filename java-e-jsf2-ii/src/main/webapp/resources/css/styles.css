@@ -1,0 +1,15 @@
+@charset "UTF-8";
+
+span.icons {
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
+.ui-commandlink.white {
+	color: #6c757d !important;
+	text-decoration: none;
+}
+
+div.autor {
+	width: 30%;
+}

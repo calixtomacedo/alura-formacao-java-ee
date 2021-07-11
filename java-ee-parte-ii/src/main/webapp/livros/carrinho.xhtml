@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+		xmlns:h="http://xmlns.jcp.org/jsf/html"
+		xmlns:f="http://xmlns.jcp.org/jsf/core"
+		xmlns:p="http://primefaces.org/ui"
+		xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+		xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"> 
+
+	<ui:composition template="/template/layout.xhtml">
+	
+		<ui:define name="titulo">
+			<div style="width: 49.8%; display: inline-block;">
+				Seu Carrinho
+			</div>
+			<div style="text-align: right; width: 49.8%; display: inline-block;">
+				<div class="sacola">#{carrinhoCompras.getQuantidadeTotal()}</div>
+			</div>
+		</ui:define>
+		
+		<ui:define name="container">
+		
+			<h:form id="formCarrinho">
+			<p class="bloco"></p>
+			
+			<div class="div-carrinho">
+			<h:dataTable id="tableCarrinho" value="#{carrinhoCompras.itens}" var="item" styleClass="table table-bordered table-striped table-hover">
+				
+				<h:column>
+					<img src="#{request.contextPath}/file/#{item.livro.capaPath}" alt="#{item.livro.titulo}" title="#{item.livro.titulo}" class="img-item-carrinho" />
+				</h:column>
+				
+				<h:column class="central">
+					<f:facet name="header">Item</f:facet>
+					<h:outputLabel value="#{item.livro.titulo}" />
+				</h:column>
+
+				<h:column class="central">
+					<f:facet name="header">Preço</f:facet>
+					<h:outputLabel value="R$ #{item.livro.preco}" />
+				</h:column>
+
+				<h:column class="text-center central" headerClass="test">
+					<f:facet name="header">Quantidade</f:facet>
+					<h:inputText pt:type="number" pt:min="1" value="#{item.quantidade}" class="input-quantidade" />
+				</h:column>
+
+				<h:column class="central">
+					<f:facet name="header">Total</f:facet>
+					<h:outputLabel value="R$ #{carrinhoCompras.getTotal(item)}" />
+				</h:column>
+				
+				<h:column class="text-center central">
+					<h:commandLink action="#{carrinho.remover(item)}" id="btnRemover">
+						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+						  <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+						  <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+						</svg>
+					</h:commandLink>
+				</h:column>
+				
+			</h:dataTable>
+			
+			
+			</div>
+			
+			<div style="width: 100%; margin-bottom: 18px;">
+				
+				<div style="width: 70%; display: inline-block;">
+					<h:commandButton action="checkout" value="FINALIZAR COMPRA"  class="btn btn-success" />
+				</div>
+				
+				<div style="width: 18%; display: inline-block; text-align: right;">
+					<h:commandLink id="btnAtualizar">
+						<h:graphicImage value="/resources/img/arrow-repeat.svg" width="24" height="24" />
+					</h:commandLink>
+				</div>
+				
+				<div style="width: 11%; display: inline-block; text-align: center; padding-left: 20px;">
+					<h:outputLabel value="R$ #{carrinhoCompras.getTotal()}" styleClass="bold" />
+				</div>
+				
+			</div>
+		
+			</h:form>
+		</ui:define>
+		
+		<p class="bloco"></p>
+		
+	</ui:composition>
+	
+</html>

@@ -1,0 +1,2 @@
+Site onde podemos pegar o properties message do jakarta validator
+http://bit.ly/1DsZKvf

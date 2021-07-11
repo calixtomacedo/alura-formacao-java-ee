@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+		xmlns:h="http://xmlns.jcp.org/jsf/html"
+		xmlns:f="http://xmlns.jcp.org/jsf/core"
+		xmlns:p="http://primefaces.org/ui"
+		xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+		xmlns:c="http://java.sun.com/jsp/jstl/core"> 
+
+	<h:head>
+		
+		<title>Curso de Java EE parte 3: Finalizando sua loja com REST, JMS, JAAS e WebSockets</title>
+		
+		<h:outputStylesheet library="css" name="bootstrap/bootstrap.min.css" /> 
+		<h:outputStylesheet library="css" name="cmdev.css" /> 
+		
+	</h:head>
+	
+	<h:body>
+			
+		<div id="barra-navegacao">
+			<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+				<div class="container-fluid">
+					
+					<div class="collapse navbar-collapse" id="navbarCollapse">
+						<ul class="navbar-nav me-auto mb-2 mb-md-0">
+							<li class="nav-item">
+								<a href="#{request.contextPath}/pages/home.xhtml" class="nav-link">Home</a>
+							</li>
+							<c:choose>
+								<c:when test="#{currentUser.hasRole('ADMIN')}">
+									<li class="nav-item">
+										<a href="#{request.contextPath}/pages/livros/form.xhtml" class="nav-link">Cadastro</a>
+									</li>
+									<li class="nav-item">
+										<a href="#{request.contextPath}/pages/livros/lista.xhtml" class="nav-link">Lista</a>
+									</li>
+									<li class="nav-item">
+										<a href="#{request.contextPath}/pages/livros/form-promo.xhtml" class="nav-link">Cadastrar promoção</a>
+									</li>
+								</c:when>
+								<c:otherwise>
+									<li class="nav-item">
+										<a href="#" class="nav-link disabled">Cadastro</a>
+									</li>
+									<li class="nav-item">
+										<a href="#" class="nav-link disabled">Lista</a>
+									</li>
+									<li class="nav-item">
+										<a href="#" class="nav-link disabled">Cadastrar promoção</a>
+									</li>
+								</c:otherwise>
+							</c:choose>
+							<c:choose>
+								<c:when test="#{currentUser.hasRole('LOGON')}">
+									<li class="nav-item">
+										<a href="#{request.contextPath}/pages/user/usuarioForm.xhtml" class="nav-link">Usuários</a>
+									</li>
+								</c:when>
+								<c:otherwise>
+									<li class="nav-item">
+										<a href="#" class="nav-link disabled">Usuários</a>
+									</li>
+								</c:otherwise>
+							</c:choose>
+						</ul>
+						
+						<c:if test="#{currentUser.isUserLoggedIn()}">
+							<label class="userLogon" >
+								Olá: #{currentUser.get().nome}
+							</label>
+							
+							<h:form id="formLogout">
+								<div class="div-link-sair">
+									<h:commandLink action="#{userAutentication.logout()}" styleClass="link-sair">
+										<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
+									  		<path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"></path>
+									  		<path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"></path>
+										</svg> Sair
+									</h:commandLink>
+								</div>
+							</h:form>
+						</c:if>
+						
+					</div>
+				</div>
+			</nav>
+		</div>
+		
+		<div id="container">
+			<main class="container-fluid">
+				<div class="bg-light p-5 rounded">
+					
+					<br /><h:messages />
+					
+					<h2 class="titulo"><ui:insert name="titulo"></ui:insert></h2>
+					
+					<ui:insert name="container"></ui:insert>
+					
+				</div>
+			</main>
+		</div>
+	
+	</h:body>
+</html>

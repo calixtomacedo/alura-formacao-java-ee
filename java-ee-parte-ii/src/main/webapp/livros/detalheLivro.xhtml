@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+		xmlns:h="http://xmlns.jcp.org/jsf/html"
+		xmlns:f="http://xmlns.jcp.org/jsf/core"
+		xmlns:p="http://primefaces.org/ui"
+		xmlns:ui="http://xmlns.jcp.org/jsf/facelets"> 
+
+	<ui:composition template="/template/layout.xhtml">
+	
+<f:metadata>
+	<f:viewParam value="#{detalheBean.idLivro}" name="idLivro" />
+	<f:viewAction action="#{detalheBean.carregaDetalhe()}" />
+</f:metadata>
+	
+		<ui:define name="titulo">
+			Detalhamento do Livro
+		</ui:define>
+		
+		<ui:define name="container">
+			
+			<p class="bloco"></p>
+			
+			<div class="div-detalhe">
+				<img src="#{request.contextPath}/file/#{detalheBean.livro.capaPath}" alt="#{detalheBean.livro.titulo}" title="#{detalheBean.livro.titulo}" />
+			</div>
+				
+			<div class="div-detalhe-sub">
+					<h1><h:outputLabel value="#{detalheBean.livro.titulo}" styleClass="form-label" /></h1>
+					<h3><h:outputLabel value="#{detalheBean.livro.descricao}" styleClass="form-label" /></h3>
+					
+					<h4>
+						<ui:repeat var="autor" value="#{detalheBean.livro.autores}">
+							<h:outputLabel value="#{autor.nome}" styleClass="form-label" />,  
+						</ui:repeat>
+					</h4>
+					
+					<b>Preço: R$<h:outputLabel value="#{detalheBean.livro.preco}" styleClass="form-label" /></b>
+					<br />
+					<h:form id="formDetalhes">
+						<h:commandButton action="#{carrinho.adicionaNoCarrinhoDeCompras(detalheBean.idLivro)}" id="comprar" value="Comprar" styleClass="btn btn-primary" />
+					</h:form>
+			</div>
+			
+			<p class="bloco"></p>
+
+		</ui:define>
+		
+	</ui:composition>
+
+</html>

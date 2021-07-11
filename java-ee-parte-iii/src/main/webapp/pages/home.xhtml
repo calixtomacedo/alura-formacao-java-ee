@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+		xmlns:h="http://xmlns.jcp.org/jsf/html"
+		xmlns:f="http://xmlns.jcp.org/jsf/core"
+		xmlns:p="http://primefaces.org/ui"
+		xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+		xmlns:c="http://java.sun.com/jsp/jstl/core"> 
+
+	<ui:composition template="/pages/template/layout.xhtml">
+	
+		<ui:define name="titulo">
+			Últimos lançamentos
+		</ui:define>
+		
+		<ui:define name="container">
+		
+			<p class="bloco"></p>
+			
+			<ul>
+				<ui:repeat var="livro" value="#{homeBean.ultimosLancamentos()}">
+					<li class="li-bloco">
+						<div class="div-bloco">
+							<c:choose>
+								<c:when test="#{currentUser.hasRole('ADMIN')}">
+									<a href="#{request.contextPath}/pages/livros/detalheLivro.xhtml?idLivro=#{livro.idLivro}">
+										<img src="#{request.contextPath}/file/#{livro.capaPath}" alt="#{livro.titulo}" title="#{livro.titulo}" />
+									</a>
+								</c:when>
+								<c:otherwise>
+									<img src="#{request.contextPath}/file/#{livro.capaPath}" alt="#{livro.titulo}" title="#{livro.titulo}" />
+								</c:otherwise>
+							</c:choose>
+						</div>
+					</li>
+				</ui:repeat>
+			</ul>
+			<p class="bloco"></p>
+			
+			<h2>Outros lançamentos</h2>
+			<p class="bloco"></p>
+			<ul>
+				<ui:repeat var="livro" value="#{homeBean.demaisLivros()}">
+					<li class="li-bloco">
+						<div class="div-bloco">
+							<c:choose>
+								<c:when test="#{currentUser.hasRole('ADMIN')}">
+									<a href="#{request.contextPath}/pages/livros/detalheLivro.xhtml?idLivro=#{livro.idLivro}">
+										<img class="livroNaVitrine-imagem" src="#{request.contextPath}/file/#{livro.capaPath}" alt="#{livro.titulo}" title="#{livro.titulo}" />
+									</a>
+								</c:when>
+								<c:otherwise>
+									<img class="livroNaVitrine-imagem" src="#{request.contextPath}/file/#{livro.capaPath}" alt="#{livro.titulo}" title="#{livro.titulo}" />
+								</c:otherwise>
+							</c:choose>
+						</div>
+					</li>
+				</ui:repeat>
+			</ul>
+			<p class="bloco"></p>
+
+		<script>
+			var canalDePromos = new WebSocket("ws://localhost:8080/#{request.contextPath}/canal/promos");
+		    canalDePromos.onmessage = function(message) {
+			    var novaPromo = JSON.parse(message.data);
+		        if(confirm("Que tal aproveitar a promoção relâmpago do livro "+ novaPromo.titulo)) {
+		            document.location.href="#{request.contextPath}/pages/livros/detalheLivro.xhtml?idLivro=" + novaPromo.livroId;
+		        }
+		    };
+		</script>
+		
+		</ui:define>
+			
+	</ui:composition>
+	
+
+</html>

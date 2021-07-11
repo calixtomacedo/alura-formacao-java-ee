@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+		xmlns:h="http://xmlns.jcp.org/jsf/html"
+		xmlns:f="http://xmlns.jcp.org/jsf/core"
+		xmlns:p="http://primefaces.org/ui"
+		xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+		xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"> 
+
+	<ui:composition template="/template/layout.xhtml">
+	
+		<ui:define name="titulo">
+			<div style="width: 49.8%; display: inline-block;">
+				Concluir suas compras
+			</div>
+			<div style="text-align: right; width: 49.8%; display: inline-block;">
+				<div class="sacola">#{carrinhoCompras.getQuantidadeTotal()}</div>
+			</div>
+		</ui:define>
+	
+		<p class="bloco"></p>
+		<ui:define name="container">
+			
+				<h:form id="formCheckout">
+					<div class="mb-3">
+						<h:outputLabel styleClass="form-label" value="E-mail" />
+						<h:inputText styleClass="form-control" value="#{checkoutBean.usuario.email}" id="email" style="width: 20%;" pt:placeholder="Digite seu e-mail" />
+						<h:message for="email" />
+					</div>
+					
+					<div class="mb-3">
+						<h:outputLabel styleClass="form-label" value="Senha:" />
+						<h:inputSecret styleClass="form-control" value="#{checkoutBean.usuario.senha}" id="senha" style="width: 10%;" pt:placeholder="Digite seu senha" />
+						<h:message for="senha" />
+					</div>
+					
+					<br />
+					<h:commandButton action="#{checkoutBean.finalizar}" value="Finalizar Compra" styleClass="btn btn-success" />
+				</h:form>
+			
+		</ui:define>
+		<p class="bloco"></p>
+		
+	</ui:composition>
+
+</html>

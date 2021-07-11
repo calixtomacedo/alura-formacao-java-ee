@@ -1,0 +1,36 @@
+@charset "UTF-8";
+
+span.icons {
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
+.ui-commandlink.white {
+	color: #6c757d !important;
+	text-decoration: none;
+}
+
+div.divAutor .ui-datatable-tablewrapper {
+	width: 30%;
+}
+
+.loading-icon {
+	margin-top: 10px;
+	font-size: 3rem;
+	color: var(- -primary-color);
+}
+
+.p-text-center{
+	padding-top: 10px;
+}
+
+table.autor thead {
+    display: none;
+}
+
+
+body .ui-datatable .autor .ui-datatable-data > tr > td {
+    padding: 0.4rem 0.4rem;
+    border: 0px solid rgba(0, 0, 0, 0.08);
+    border-width: 0 0 0px 0;
+}

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+		xmlns:h="http://xmlns.jcp.org/jsf/html" 
+		xmlns:f="http://xmlns.jcp.org/jsf/core"
+		xmlns:p="http://primefaces.org/ui"
+		xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+	<ui:composition template="pages/_template.xhtml">
+		
+		<ui:define name="titulo">
+		  <p:outputPanel>Tela de autenticação</p:outputPanel>
+		</ui:define>
+		
+		<ui:define name="conteudo">
+		
+			<p:messages globalOnly="true" />
+			
+			<h:form id="formLogin">
+				
+				<p:fieldset legend="Autenticar no sistema">
+					
+					<h:panelGrid columns="3">
+						
+						<p:outputLabel value="Usuário:" for="login" />
+						<p:inputText size="40" id="login" value="#{usuarioBean.usuario.login}" required="true" requiredMessage="O campo isuário é de preenchimento obrigatório." />
+						<p:message for="login" id="messageLogin" />
+						
+						<p:outputLabel value="Senha:" for="senha" />
+						<p:password size="30" id="senha" value="#{usuarioBean.usuario.senha}" required="true" requiredMessage="O campo senha é de preenchimento obrigatório." />
+						<p:message for="senha"  id="messageSenha" />
+						
+					</h:panelGrid>
+					
+					<br />
+					<p:commandButton value="Entrar" action="#{usuarioBean.autenticar}" process="@form" update="@form" />
+					
+				</p:fieldset>
+			</h:form>
+		
+		</ui:define>
+	</ui:composition>
+
+</html>
