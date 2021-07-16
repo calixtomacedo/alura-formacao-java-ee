@@ -5,13 +5,13 @@ import java.util.Base64;
 
 public class EncryptFactory {
 	
-	/*
+	
 	public static void main(String[] args) {
 		EncryptFactory e = new EncryptFactory();
 		String password = e.encryptPassword("654321");
 		System.out.println(password);
 	}
-	*/
+
 	
 	public String encryptPassword(String password) {
 		try {

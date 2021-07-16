@@ -41,7 +41,7 @@ public class LivroBean {
 		context.getExternalContext().getFlash().setKeepMessages(true);
 		context.addMessage(null, new FacesMessage("Livro cadastrado com sucesso!"));
 		
-		return "/lista?faces-redirect=true";
+		return "/pages/livros/lista?faces-redirect=true";
 	}
 
 	public List<Autor> getAutores() {
