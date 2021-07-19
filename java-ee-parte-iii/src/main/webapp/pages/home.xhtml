@@ -60,7 +60,9 @@
 			<p class="bloco"></p>
 
 		<script>
-			var canalDePromos = new WebSocket("ws://localhost:8080/#{request.contextPath}/canal/promos");
+			var canalDePromos = new WebSocket("ws://192.168.0.18:8080/#{request.contextPath}/canal/promos");
+			//var canalDePromos = new WebSocket("ws://localhost:8080/#{request.contextPath}/canal/promos");
+			
 		    canalDePromos.onmessage = function(message) {
 			    var novaPromo = JSON.parse(message.data);
 		        if(confirm("Que tal aproveitar a promoção relâmpago do livro "+ novaPromo.titulo)) {
