@@ -57,7 +57,7 @@ public class PagamentoService {
 				
 				producer.send(destination, compra.getUuid());
 				
-				URI uri = UriBuilder.fromPath("http://localhost:8080".concat(contextPath).concat("/pages/home.xhtml")).build();
+				URI uri = UriBuilder.fromPath("http://192.168.0.18:8080".concat(contextPath).concat("/pages/home.xhtml")).build();
 				Response response = Response.seeOther(uri).build();
 				asyncResponse.resume(response);
 				
