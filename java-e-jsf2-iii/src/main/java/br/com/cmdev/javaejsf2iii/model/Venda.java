@@ -19,8 +19,8 @@ public class Venda implements Serializable {
 	@Column(name = "IDVENDA")
 	private Long id; 
 	private Integer quantidade;
-	public LocalDateTime dataVenda;
-	public LocalDateTime dataAlteracao;
+	private LocalDateTime dataVenda;
+	private LocalDateTime dataAlteracao;
 	
 	@ManyToOne
 	@JoinColumn(name = "IDLIVRO")

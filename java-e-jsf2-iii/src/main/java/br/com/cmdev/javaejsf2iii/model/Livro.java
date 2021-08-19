@@ -28,11 +28,11 @@ public class Livro implements Serializable {
 	@SequenceGenerator(name = "TB_LIVROS_SEQ", allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "TB_LIVROS_SEQ")
 	private Long id;
-	public String titulo;
-	public String isbn;
-	public BigDecimal preco;
-	public LocalDate dataLancamento;
-	public LocalDateTime dataCadastro;
+	private String titulo;
+	private String isbn;
+	private BigDecimal preco;
+	private LocalDate dataLancamento;
+	private LocalDateTime dataCadastro;
 
 	//@ManyToMany(fetch = FetchType.EAGER) //todo relacionamento que tenha o ToMany da direita usa o carregamento Lazy // Evitar o uso, pois não é uma boa pratica. Podemos sobre carregar o banco de dados
 	@ManyToMany

@@ -21,7 +21,7 @@ public class Autor {
 	private Integer idAutor;
 	private String nome;
 	private String email;
-	public LocalDateTime dataCadastro;
+	private LocalDateTime dataCadastro;
 
 	public Autor() {
 	}

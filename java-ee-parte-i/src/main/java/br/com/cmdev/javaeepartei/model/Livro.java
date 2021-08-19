@@ -28,18 +28,6 @@ import org.hibernate.validator.constraints.Length;
  * @author calixto.macedo - Calixto Macedo
  *
  */
-/**
- * @author calixto.macedo - Calixto Macedo
- *
- */
-/**
- * @author calixto.macedo - Calixto Macedo
- *
- */
-/**
- * @author calixto.macedo - Calixto Macedo
- *
- */
 @Entity()
 @Table(name = "TB_LIVROS")
 public class Livro implements Serializable {

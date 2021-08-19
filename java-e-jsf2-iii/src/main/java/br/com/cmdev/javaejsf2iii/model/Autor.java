@@ -23,7 +23,7 @@ public class Autor implements Serializable {
 	private Long id;
 	private String nome;
 	private String email;
-	public LocalDateTime dataCadastro;
+	private LocalDateTime dataCadastro;
 
 	public Long getId() {
 		return id;
